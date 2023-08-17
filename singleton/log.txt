@@ -1,0 +1,2 @@
+write: AAA
+write: BBB
