@@ -2,8 +2,6 @@ class logger;
     local static logger log_h;
     int file_h;
 
-    static logger tag = get_tag_h();
-
     local function new();
         file_h = $fopen("log.txt", "w");
     endfunction
@@ -14,14 +12,6 @@ class logger;
             $display("create log_h!");
         end
         return log_h;
-    endfunction
-
-    static function logger get_tag_h();
-        if (tag == null) begin
-            tag = new();
-            $display("create tag_h!");
-        end
-        return tag;
     endfunction
 
     function write (string str);
