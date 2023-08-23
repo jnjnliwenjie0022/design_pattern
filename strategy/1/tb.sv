@@ -1,27 +1,27 @@
-virtual class isStrategy;
+virtual class Strategy;
     pure virtual function void add_oid();
-endclass : isStrategy
+endclass : Strategy
 
-class add_gasoline extends isStrategy;
+class AddGasonlineStrategy extends Strategy;
 
     virtual function void add_oid();
         $display("Please add gasoline");
     endfunction
 
-endclass : add_gasoline
+endclass : AddGasonlineStrategy
 
-class add_diesel extends isStrategy;
+class AddDieselStrategy extends Strategy;
 
     virtual function void add_oid();
         $display("Please add diesel");
     endfunction
 
-endclass : add_diesel
+endclass : AddDieselStrategy
 
-virtual class car;
-    protected isStrategy strategy;
+virtual class Car;
+    protected Strategy strategy;
 
-    function void set_oid_type(isStrategy strategy);
+    function void set_oid_type(Strategy strategy);
         this.strategy = strategy;
     endfunction
 
@@ -30,34 +30,34 @@ virtual class car;
     endfunction
 endclass
 
-class sedan extends car;
+class Sedan extends Car;
     function new();
-        $display("This is sedan car!");
+        $display("This is Sedan car!");
     endfunction
 endclass
 
-class truck extends car;
+class Truck extends Car;
     function new();
-        $display("This is truck car!");
+        $display("This is Truck car!");
     endfunction
 endclass
 
 module tb;
-    truck truck_h;
-    sedan sedan_h;
+    Truck truck;
+    Sedan sedan;
 
-    add_diesel add_diesel_h;
-    add_gasoline add_gasoline_h;
+    AddDieselStrategy add_diesel_strategy;
+    AddGasonlineStrategy add_gasoline_strategy;
 
     initial begin
-        truck_h = new();
-        sedan_h =  new();
-        add_diesel_h = new();
-        add_gasoline_h = new() ;
+        truck = new();
+        sedan =  new();
+        add_diesel_strategy = new();
+        add_gasoline_strategy = new();
 
-        sedan_h.set_oid_type(add_gasoline_h);
-        sedan_h.request_add_oil();
-        truck_h.set_oid_type(add_diesel_h);
-        truck_h.request_add_oil();
+        sedan.set_oid_type(add_gasoline_strategy);
+        sedan.request_add_oil();
+        truck.set_oid_type(add_diesel_strategy);
+        truck.request_add_oil();
     end
 endmodule
